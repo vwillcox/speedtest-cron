@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# Alton Waters Broadband Speed Checker
+# Network Testing Appliance
 # Uses the speedtest.net servers and SpeedTest-CLI
 # SpeedTest-cli by Matt Martz
 
 # Version 1 - Simple Speed Testing
-# Email Script
+# Weekly Email Script
 
 filename=speedtest.txt
 filedir=/home/pi/speedtest/
