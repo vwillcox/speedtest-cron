@@ -13,10 +13,13 @@ sudo pip install gpiozero
 sudo pip-3.2 install gpiozero
 
 sudo pip install speedtest-cli
+
 sudo pip install ipgetter
+
 sudo pip3 install ipgetter
 
 For the email sections you will need:
 
 sudo apt-get install mpack
+
 sudo apt-get install zip
