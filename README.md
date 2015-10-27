@@ -20,6 +20,6 @@ sudo pip3 install ipgetter
 
 For the email sections you will need:
 
-sudo apt-get install mpack zip 
+sudo apt-get install mpack zip ssmtp mailutils mpack
 
 I am working on an installer - this will come in a later version once other bugs are fixed.
