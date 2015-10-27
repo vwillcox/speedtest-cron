@@ -12,6 +12,9 @@ filedir=/home/pi/speedtest-cron/
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 email_addresses="email@email.com email@email2.com"
 
-mail -s "Speed Testing Results" $email_addresses < $filedir$filename
-archive_name=$current_time.$filename
-mv $filedir$filename $filedir$archive_name
+if [ -e "$filedir$filename" ]
+then
+   mail -s "Speed Testing Results" $email_addresses < $filedir$filename
+   archive_name=$current_time.$filename
+   mv $filedir$filename $filedir$archive_name
+fi
