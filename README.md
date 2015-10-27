@@ -23,3 +23,5 @@ For the email sections you will need:
 sudo apt-get install mpack
 
 sudo apt-get install zip
+
+I am working on an installer - this will come in a later version once other bugs are fixed.
