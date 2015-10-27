@@ -8,7 +8,7 @@
 # Daily Email Script
 
 filename=speedtest.txt
-filedir=/home/pi/speedtest/
+filedir=/home/pi/speedtest-cron/
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 email_addresses="email@email.com email@email2.com"
 
