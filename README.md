@@ -9,6 +9,8 @@ To use the device you will need a few bits installted to your Raspberry Pi. You 
 
 sudo ./install.sh
 
+You will also need to enable SPI in the raspi-config tool.
+
 ----------------------------------
 
 If you want to go old-school and manually install all the bits and bobs, that fine, check out all the bits below.
