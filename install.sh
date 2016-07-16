@@ -21,7 +21,7 @@ apt-get install mpack zip ssmtp mailutils mpack python-pip python3-pip python-w1
 echo "Done"
 echo "Now installing python modules: gpiozero, speedtest-cli and ipgetter"
 pip install gpiozero 2>&1 >/dev/null
-pip-3.2 install gpiozero 2>&1 >/dev/null
+pip3 install gpiozero 2>&1 >/dev/null
 pip install speedtest-cli 2>&1 >/dev/null
 pip install ipgetter 2>&1 >/dev/null
 pip3 install ipgetter 2>&1 >/dev/null
