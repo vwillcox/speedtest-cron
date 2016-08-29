@@ -28,7 +28,21 @@ pip_install gpiozero
 pip_install speedtest-cli
 pip_install ipgetter
 pip_install ascii_graph
+
+echo "Updating cron for user 'pi'"
+cat <<EOF > /etc/cron.d/speedtest-cron
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m   h dom mon dow user	command
+15,45 *  *   *   *	pi    cd /home/pi && ./speedtest.sh
+30    8  *   *   *	pi    cd /home/pi && ./doemailout.sh
+35    8  *   *   0	pi    cd /home/pi && ./doweeklycleanup.sh
+EOF
+
 echo "All done! Enjoy"
+
+
 
 function pip_install {
    local package_name=$1
