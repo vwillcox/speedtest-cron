@@ -35,9 +35,9 @@ SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m   h dom mon dow user	command
-15,45 *  *   *   *	pi    cd /home/pi && ./speedtest.sh
-30    8  *   *   *	pi    cd /home/pi && ./doemailout.sh
-35    8  *   *   0	pi    cd /home/pi && ./doweeklycleanup.sh
+15,45 *  *   *   *	pi    cd /home/pi/speedtest-cron && ./speedtest.sh
+30    8  *   *   *	pi    cd /home/pi/speedtest-cron && ./doemailout.sh
+35    8  *   *   0	pi    cd /home/pi/speedtest-cron && ./doweeklycleanup.sh
 EOF
 
 echo "All done! Enjoy"
