@@ -8,13 +8,13 @@
 # Daily Email Script
 
 filename=speedtest.txt
-filedir=/home/pi/speedtest-cron/
+filedir=/home/pi/speedtest-cron
 current_time=$(date "+%Y.%m.%d-%H.%M.%S")
 email_addresses="email@email.com email@email2.com"
 
-if [ -e "$filedir$filename" ]
+if [ -e "$filedir/$filename" ]
 then
-   mail -s "Speed Testing Results" $email_addresses < $filedir$filename
+   python $filedir/graph.py "$filedir/$filename" | mail -s "Speed Testing Results" $email_addresses
    archive_name=$current_time.$filename
-   mv $filedir$filename $filedir$archive_name
+   mv $filedir/$filename $filedir/$archive_name
 fi
