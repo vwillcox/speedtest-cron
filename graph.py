@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 from io import open
 from datetime import datetime
 from ascii_graph import Pyasciigraph
@@ -28,9 +29,14 @@ def print_graph(speedtests, dict_entry, title, unit):
   print
 # ------ main -------
 
+if len(sys.argv) < 2:
+  sys.stderr.write("Usage: graph.py <input_file.txt>\n")
+  exit(1)
+
+filename=sys.argv[1]
 speedtests=[]
 
-with open('speedtest.txt','r') as file:
+with open(filename,'r') as file:
   speedtest = read_speedtest(file)
   while speedtest != None:
     speedtests.append(speedtest)
