@@ -27,6 +27,10 @@ sudo pip install ipgetter
 
 sudo pip3 install ipgetter
 
+sudo pip install ascii_graph
+
+sudo pip3 install ascii_graph
+
 sudo apt-get install mpack zip ssmtp mailutils mpack
 
 ---------------------------------
