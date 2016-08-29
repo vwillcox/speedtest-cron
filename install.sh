@@ -14,11 +14,17 @@ fi
    read -p "$*"
 }
  
+function pip_install {
+   local package_name=$1
+   pip install $package_name 2>&1 >/dev/null
+   pip3 install $package_name 2>&1 >/dev/null
+}
+
 echo "Welcome to The Network Testing Appliance Installer"
 pause 'Press [Enter] to install the required bits and pieces or CTRL+C to stop...'
 echo "Installing mpack zip ssmtp mailutils mpack python-pip python3-pip python-w1thermsensor python3-w1thermsensor python-spidev python3-spidev"
 apt-get install mpack zip ssmtp mailutils mpack python-pip python3-pip python-w1thermsensor python3-w1thermsensor python-spidev python3-spidev -y 2>&1 >/dev/null
-if [ "?$" -ne 0 ]; then
+if [ "$?" -ne 0 ]; then
   echo "Error while running apt-get (maybe run apt-get update?)";
   exit 1;
 fi
@@ -41,11 +47,3 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 EOF
 
 echo "All done! Enjoy"
-
-
-
-function pip_install {
-   local package_name=$1
-   pip install $package_name 2>&1 >/dev/null
-   pip3 install $package_name 2>&1 >/dev/null
-}
