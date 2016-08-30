@@ -16,6 +16,7 @@ fi
  
 function pip_install {
    local package_name=$1
+   echo "Installing $package_name"
    pip install $package_name 2>&1 >/dev/null
    pip3 install $package_name 2>&1 >/dev/null
 }
@@ -29,10 +30,11 @@ if [ "$?" -ne 0 ]; then
   exit 1;
 fi
 echo "Done"
-echo "Now installing python modules: gpiozero, speedtest-cli and ipgetter"
+echo "Now installing python modules"
 pip_install gpiozero
 pip_install speedtest-cli
 pip_install ipgetter
+pip_install statistics
 pip_install ascii_graph
 
 echo "Updating cron for user 'pi'"
