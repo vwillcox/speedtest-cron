@@ -14,16 +14,38 @@ fi
    read -p "$*"
 }
  
+function pip_install {
+   local package_name=$1
+   echo "Installing $package_name"
+   pip install $package_name 2>&1 >/dev/null
+   pip3 install $package_name 2>&1 >/dev/null
+}
+
 echo "Welcome to The Network Testing Appliance Installer"
-pause 'Press [Enter] to install the required bits and peices or CTRL+C to stop...'
+pause 'Press [Enter] to install the required bits and pieces or CTRL+C to stop...'
 echo "Installing mpack zip ssmtp mailutils mpack python-pip python3-pip python-w1thermsensor python3-w1thermsensor python-spidev python3-spidev"
 apt-get install mpack zip ssmtp mailutils mpack python-pip python3-pip python-w1thermsensor python3-w1thermsensor python-spidev python3-spidev -y 2>&1 >/dev/null
+if [ "$?" -ne 0 ]; then
+  echo "Error while running apt-get (maybe run apt-get update?)";
+  exit 1;
+fi
 echo "Done"
-echo "Now installing python modules: gpiozero, speedtest-cli and ipgetter"
-pip install gpiozero 2>&1 >/dev/null
-pip3 install gpiozero 2>&1 >/dev/null
-pip install speedtest-cli 2>&1 >/dev/null
-pip install ipgetter 2>&1 >/dev/null
-pip3 install ipgetter 2>&1 >/dev/null
-echo "All done! Enjoy"
+echo "Now installing python modules"
+pip_install gpiozero
+pip_install speedtest-cli
+pip_install ipgetter
+pip_install statistics
+pip_install ascii_graph
 
+echo "Updating cron for user 'pi'"
+cat <<EOF > /etc/cron.d/speedtest-cron
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m   h dom mon dow user	command
+15,45 *  *   *   *	pi    cd /home/pi/speedtest-cron && ./speedtest.sh
+30    8  *   *   *	pi    cd /home/pi/speedtest-cron && ./doemailout.sh
+35    8  *   *   0	pi    cd /home/pi/speedtest-cron && ./doweeklycleanup.sh
+EOF
+
+echo "All done! Enjoy"
