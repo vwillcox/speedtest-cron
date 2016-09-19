@@ -5,7 +5,6 @@ from io import open
 from datetime import datetime
 from statistics import mean,stdev
 from ascii_graph import Pyasciigraph
-import re
 
 def read_speedtest(file):
   line = file.readline()
