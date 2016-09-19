@@ -5,6 +5,7 @@ from io import open
 from datetime import datetime
 from statistics import mean,stdev
 from ascii_graph import Pyasciigraph
+import re
 
 def read_speedtest(file):
   line = file.readline()
@@ -13,9 +14,15 @@ def read_speedtest(file):
   datetime_line = line.split()
   speedtest = {}
   speedtest['datetime'] = datetime.strptime(datetime_line[4] + ' ' + datetime_line[5], '%d/%m/%Y %H:%M')
-  speedtest['ping'] = float(file.readline().split()[1])
-  speedtest['download'] = float(file.readline().split()[1])
-  speedtest['upload'] = float(file.readline().split()[1])
+  line = file.readline();
+  if re.match("Could not retrieve speedtest.net configuration", line) == None:
+    speedtest['ping'] = float(line.split()[1])
+    speedtest['download'] = float(file.readline().split()[1])
+    speedtest['upload'] = float(file.readline().split()[1])
+  else:
+    speedtest['ping'] = 0.0
+    speedtest['download'] = 0.0
+    speedtest['upload'] = 0.0
   file.readline() # to consume the '----------' separator
   return speedtest
 
