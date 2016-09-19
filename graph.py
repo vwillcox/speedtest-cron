@@ -21,7 +21,10 @@ def read_speedtest(file):
     speedtest['ping'] = 0.0
     speedtest['download'] = 0.0
     speedtest['upload'] = 0.0
-  file.readline() # to consume the '----------' separator
+  line = file.readline()
+  while '----------' not in line:
+    line = file.readline()
+    print line;
   return speedtest
 
 def to_graph_input(speedtests, attr):
