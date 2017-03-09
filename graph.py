@@ -13,10 +13,18 @@ def read_speedtest(file):
   datetime_line = line.split()
   speedtest = {}
   speedtest['datetime'] = datetime.strptime(datetime_line[4] + ' ' + datetime_line[5], '%d/%m/%Y %H:%M')
-  speedtest['ping'] = float(file.readline().split()[1])
-  speedtest['download'] = float(file.readline().split()[1])
-  speedtest['upload'] = float(file.readline().split()[1])
-  file.readline() # to consume the '----------' separator
+  try:
+    speedtest['ping'] = float(file.readline().split()[1])
+    speedtest['download'] = float(file.readline().split()[1])
+    speedtest['upload'] = float(file.readline().split()[1])
+  except: # Catches the case where there is an issue reaching speedtest
+    speedtest['ping'] = 0.0
+    speedtest['download'] = 0.0
+    speedtest['upload'] = 0.0
+  line = file.readline()
+  while '----------' not in line:
+    line = file.readline()
+    print line;
   return speedtest
 
 def to_graph_input(speedtests, attr):
