@@ -34,7 +34,7 @@ def main(argv):
     for file_name in argv:
         if not os.path.exists(file_name):
             sys.exit('error: image file{f:s} does not exist'.format(f=file_name))
-        print('display: {f:s}'.format(f=file_name))
+        #print('display: {f:s}'.format(f=file_name))
         display_file(epd, file_name)
 
 
