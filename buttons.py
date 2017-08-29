@@ -89,7 +89,7 @@ def main():
 		    # Check if the first button is pressed and reload the screen
             if button3.is_active:
                 display_running(epd)
-                subprocess.call(shlex.split('/home/pi/speedtest-cron/graph2image.py'))
+                subprocess.call(shlex.split('/home/pi/speedtest-cron/ImageDemo.py temp.png'))
             if button2.is_active:
                 display_running(epd)
 				# ToDo: Run this in pure python - for now another shell script is used
