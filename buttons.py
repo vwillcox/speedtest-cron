@@ -157,8 +157,8 @@ def display_running(epd):
 
 #main
 if "__main__" == __name__:
-    bus = smbus.SMBus(1)
-    rtc = 0x68
+    #bus = smbus.SMBus(1)
+    #rtc = 0x68
 
     WHITE = 1
     BLACK = 0
