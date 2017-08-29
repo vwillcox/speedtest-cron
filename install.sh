@@ -37,15 +37,15 @@ pip_install ipgetter
 pip_install statistics
 pip_install ascii_graph
 
-echo "Updating cron for user 'pi'"
-cat <<EOF > /etc/cron.d/speedtest-cron
-SHELL=/bin/sh
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-
+#echo "Updating cron for user 'pi'"
+#cat <<EOF > /etc/cron.d/speedtest-cron
+#SHELL=/bin/sh
+#PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin#
+#
 # m   h dom mon dow user	command
-15,45 *  *   *   *	pi    cd /home/pi/speedtest-cron && ./speedtest.sh
-30    8  *   *   *	pi    cd /home/pi/speedtest-cron && ./doemailout.sh
-35    8  *   *   0	pi    cd /home/pi/speedtest-cron && ./doweeklycleanup.sh
-EOF
+#15,45 *  *   *   *	pi    cd /home/pi/speedtest-cron && ./speedtest.sh
+#30    8  *   *   *	pi    cd /home/pi/speedtest-cron && ./doemailout.sh
+#35    8  *   *   0	pi    cd /home/pi/speedtest-cron && ./doweeklycleanup.sh
+#EOF
 
 echo "All done! Enjoy"

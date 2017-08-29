@@ -87,10 +87,9 @@ def main():
     try:
         while True:   # loop forever
 		    # Check if the first button is pressed and reload the screen
-            if button1.is_active:
+            if button3.is_active:
                 display_eedata(epd)
-		    # Check if the second button is pressed and run a fresh speedtest, then reload the screen.
-			# This will run over either the Ethernet or the wireless dongle if it is connected to a hot-spot.
+                subprocess.call(shlex.split('/home/pi/speedtest-cron/graph2image.py'))
             if button2.is_active:
                 display_running(epd)
 				# ToDo: Run this in pure python - for now another shell script is used
