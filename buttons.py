@@ -6,6 +6,7 @@
 #                 http://talktech.info                    #
 ###########################################################
 #                Version 1 - 25/10/2015                   #
+#             Version 1.5 alpha 20/09/2017                #
 ###########################################################
 
 from gpiozero import RGBLED, Button
@@ -14,8 +15,7 @@ import time
 import sys
 import os
 import subprocess
-from PIL import Image
-from PIL import ImageOps
+from PIL import Image, ImageOps
 import ImageDraw
 import ImageFont
 import ipgetter
@@ -23,6 +23,8 @@ import socket
 import subprocess
 import shlex
 from EPD import EPD
+import fcntl
+import struct
 
 led = RGBLED(red=6, green=12, blue=5)
 button1 = Button(16)
@@ -31,13 +33,9 @@ button3 = Button(20)
 button4 = Button(26)
 
 
-if os.name != "nt":
-    import fcntl
-    import struct
-
-    def get_interface_ip(ifname):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        return socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s',
+def get_interface_ip(ifname):
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s',
                                 ifname[:15]))[20:24])
 
 def get_lan_ip():
@@ -84,16 +82,18 @@ def restore_rtc_module():
 
 def main():
     epd = EPD()
+    graph_code = '/home/pi/speedtest-cron/ImageDemo.py temp.png'
+    speed_test_code = '/home/pi/speedtest-cron/speedtest.sh'
     try:
         while True:   # loop forever
 		    # Check if the first button is pressed and reload the screen
             if button3.is_active:
                 display_running(epd)
-                subprocess.call(shlex.split('/home/pi/speedtest-cron/ImageDemo.py temp.png'))
+                subprocess.call(shlex.split(graph_code))
             if button2.is_active:
                 display_running(epd)
 				# ToDo: Run this in pure python - for now another shell script is used
-                subprocess.call(shlex.split('/home/pi/speedtest-cron/speedtest.sh'))
+                subprocess.call(shlex.split(speed_test_code))
                 display_eedata(epd)
     except KeyboardInterrupt:
       print ("Exiting Appliance Code")
@@ -103,14 +103,15 @@ def display_eedata(epd):
     w = epd.width
     h = epd.height
     myip = ipgetter.myip()
+    speed_test_log = '/home/pi/speedtest-cron/speedtest.txt'
     # Uncomment this line to display the true external IP
-	#ext_ip = 'External: ' +  myip
+	# ext_ip = 'External: ' +  myip
 	# Comment this line to remove the fake external IP
     ext_ip = 'External: 255.255.255.255'
     int_ip = get_lan_ip()
     int_ip = 'Internal: '  + int_ip
     #int_ip = int_ip.rstrip(5)
-    f = open('/home/pi/speedtest-cron/speedtest.txt')
+    f = open(speed_test_log)
     lines = f.readlines()
     f.close()
     speedline1 = lines[-5].strip()
@@ -134,7 +135,7 @@ def display_eedata(epd):
     # display image on the panel
     epd.display(image)
     epd.update()
-	
+
 # Code to show that a new speed test is running.
 def display_running(epd):
     w = epd.width
