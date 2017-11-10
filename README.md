@@ -15,7 +15,7 @@ You will also need to enable SPI in the raspi-config tool.
 
 If you want to go old-school and manually install all the bits and bobs, that fine, check out all the bits below.
 
-sudo apt-get install python-pip python3-pip python-w1thermsensor python3-w1thermsensor python-spidev python3-spidev
+sudo apt-get install python-pip python3-pip python-spidev python3-spidev
 
 sudo pip install gpiozero
 
